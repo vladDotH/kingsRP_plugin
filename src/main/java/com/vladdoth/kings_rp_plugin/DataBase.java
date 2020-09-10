@@ -5,8 +5,8 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
-import com.mongodb.client.model.Updates;
-import com.mongodb.internal.operation.UpdateOperation;
+import com.vladdoth.kings_rp_plugin.configs.Fields;
+import com.vladdoth.kings_rp_plugin.configs.Values;
 import org.bson.Document;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -21,14 +21,9 @@ public class DataBase implements Listener {
     private MongoCollection<Document> usersCol;
 
     public DataBase() {
-        FileConfiguration cfg = Plugin.getInstance().getConfig();
-        String dbURI = cfg.getString(ConfigFields.DB_URI),
-                dbName = cfg.getString(ConfigFields.DB_NAME),
-                colName = cfg.getString(ConfigFields.DB_COL_NAME);
-
-        mc = MongoClients.create(dbURI);
-        database = mc.getDatabase(dbName);
-        usersCol = database.getCollection(colName);
+        mc = MongoClients.create(Values.DB_URI);
+        database = mc.getDatabase(Values.DB_NAME);
+        usersCol = database.getCollection(Values.DB_COL_NAME);
     }
 
     @EventHandler
@@ -42,12 +37,12 @@ public class DataBase implements Listener {
     }
 
     public void loadPlayer(Player p) {
-        Document doc = usersCol.find(Filters.eq("name", p.getName())).first();
+        Document doc = usersCol.find(Filters.eq(Values.DB_PLAYER_ID, p.getName())).first();
 
         UserData userData;
         if (doc == null) {
             userData = new UserData(p.getName());
-            usersCol.insertOne(new Document("name", p.getName()));
+            usersCol.insertOne(new Document(Values.DB_PLAYER_ID, p.getName()));
         } else
             userData = new UserData(doc);
 
@@ -56,7 +51,7 @@ public class DataBase implements Listener {
 
     public void uploadPlayer(Player p) {
         usersCol.findOneAndUpdate(
-                Filters.eq("name", p.getName()),
+                Filters.eq(Values.DB_PLAYER_ID, p.getName()),
                 new Document("$set", Plugin.getInstance().getUsers().get(p.getName()).packData()));
         Plugin.getInstance().getUsers().remove(p.getName());
     }

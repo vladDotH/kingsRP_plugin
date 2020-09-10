@@ -1,8 +1,10 @@
 package com.vladdoth.kings_rp_plugin.jobs;
 
-import com.vladdoth.kings_rp_plugin.ConfigFields;
+import com.vladdoth.kings_rp_plugin.configs.Config;
+import com.vladdoth.kings_rp_plugin.configs.Fields;
 import com.vladdoth.kings_rp_plugin.Plugin;
 import com.vladdoth.kings_rp_plugin.UserData;
+import com.vladdoth.kings_rp_plugin.configs.Values;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
@@ -12,43 +14,40 @@ public class JobsManager {
     static class Chances {
         public final double hit, mine, lumber, harvest;
 
-        Chances(double hit, double mine, double lumber, double harvest) {
-            this.hit = hit;
+        Chances(double mine, double harvest, double lumber, double hit) {
             this.mine = mine;
-            this.lumber = lumber;
             this.harvest = harvest;
+            this.lumber = lumber;
+            this.hit = hit;
         }
     }
 
     static Chances Base = new Chances(
-            Plugin.getInstance().getConfig().getDouble(ConfigFields.BaseChances.ATTACK),
-            Plugin.getInstance().getConfig().getDouble(ConfigFields.BaseChances.MINE),
-            Plugin.getInstance().getConfig().getDouble(ConfigFields.BaseChances.LUMBER),
-            Plugin.getInstance().getConfig().getDouble(ConfigFields.BaseChances.HARVEST));
+            Values.BASE_CHANCE.MINE,
+            Values.BASE_CHANCE.HARVEST,
+            Values.BASE_CHANCE.LUMBER,
+            Values.BASE_CHANCE.ATTACK);
 
     static Chances Bonus = new Chances(
-            Plugin.getInstance().getConfig().getDouble(ConfigFields.JobBonus.ATTACK),
-            Plugin.getInstance().getConfig().getDouble(ConfigFields.JobBonus.MINE),
-            Plugin.getInstance().getConfig().getDouble(ConfigFields.JobBonus.LUMBER),
-            Plugin.getInstance().getConfig().getDouble(ConfigFields.JobBonus.HARVEST)
+            Values.JOB_BONUS.MINE,
+            Values.JOB_BONUS.HARVEST,
+            Values.JOB_BONUS.LUMBER,
+            Values.JOB_BONUS.ATTACK
     );
 
     static Chances PerLvl = new Chances(
-            Plugin.getInstance().getConfig().getDouble(ConfigFields.ChancesPerLvl.ATTACK),
-            Plugin.getInstance().getConfig().getDouble(ConfigFields.ChancesPerLvl.MINE),
-            Plugin.getInstance().getConfig().getDouble(ConfigFields.ChancesPerLvl.LUMBER),
-            Plugin.getInstance().getConfig().getDouble(ConfigFields.ChancesPerLvl.HARVEST)
+            Values.CHANCE_PER_LVL.MINE,
+            Values.CHANCE_PER_LVL.HARVEST,
+            Values.CHANCE_PER_LVL.LUMBER,
+            Values.CHANCE_PER_LVL.ATTACK
     );
 
-    static double maxLvl = Plugin.getInstance().getConfig().getDouble(ConfigFields.MAX_LVL),
-            expHit = Plugin.getInstance().getConfig().getDouble(ConfigFields.EXP_HIT);
-
     public static double reduceExp(double exp, double skill) {
-        return exp * ((maxLvl - skill) / maxLvl);
+        return exp * ((Values.MAX_LVL - skill) / Values.MAX_LVL);
     }
 
     public static void killedEntity(EntityDeathEvent event) {
-        double exp = Plugin.getInstance().getConfig().getDouble(event.getEntity().getType().toString());
+        double exp = Config.getDouble(event.getEntity().getType().toString());
         UserData user = Plugin.getInstance().getUsers()
                 .get(event.getEntity().getKiller().getName());
         double hunting = user.getSkills().getHunting();
@@ -66,7 +65,7 @@ public class JobsManager {
 
         double hitChance = Base.hit + bonus + PerLvl.hit * hunting;
 
-        user.getSkills().updHunting(reduceExp(expHit, hunting));
+        user.getSkills().updHunting(reduceExp(Values.MISS_EXP.ATTACK, hunting));
 
 //        Plugin.getInstance().getLogger().info("chances: " +
 //                "summary=" + hitChance + " base=" + Base.hit + " bonus=" + bonus + " skill=" + PerLvl.hit * hunting);
@@ -87,13 +86,15 @@ public class JobsManager {
 
         double brokeChance = Base.mine + bonus + PerLvl.mine * mining;
 
+        user.getSkills().updHunting(reduceExp(Values.MISS_EXP.MINE, mining));
+
 //        Plugin.getInstance().getLogger().info("chances: " +
 //                "summary=" + brokeChance + " base=" + Base.mine + " bonus=" + bonus + " skill=" + PerLvl.mine * mining);
 
         if (!Chance.roll(brokeChance))
             event.setCancelled(true);
         else {
-            double exp = Plugin.getInstance().getConfig().getDouble(event.getBlock().getType().toString());
+            double exp = Config.getDouble(event.getBlock().getType().toString());
             user.getSkills().updMining(reduceExp(exp, mining));
         }
     }
@@ -109,13 +110,15 @@ public class JobsManager {
 
         double harvestChance = Base.hit + bonus + PerLvl.harvest * farming;
 
+        user.getSkills().updHunting(reduceExp(Values.MISS_EXP.HARVEST, farming));
+
 //        Plugin.getInstance().getLogger().info("chances: " +
 //                "summary=" + harvestChance + " base=" + Base.harvest + " bonus=" + bonus + " skill=" + PerLvl.harvest * farming);
 
         if (!Chance.roll(harvestChance))
             event.setCancelled(true);
         else {
-            double exp = Plugin.getInstance().getConfig().getDouble(event.getBlock().getType().toString());
+            double exp = Config.getDouble(event.getBlock().getType().toString());
             user.getSkills().updFarming(reduceExp(exp, farming));
         }
     }
@@ -131,13 +134,15 @@ public class JobsManager {
 
         double brokeChance = Base.lumber + bonus + PerLvl.lumber * lumbering;
 
+        user.getSkills().updHunting(reduceExp(Values.MISS_EXP.LUMBER, lumbering));
+
 //        Plugin.getInstance().getLogger().info("chances: " +
 //                "summary=" + brokeChance + " base=" + Base.lumber + " bonus=" + bonus + " skill=" + PerLvl.lumber * lumbering);
 
         if (!Chance.roll(brokeChance))
             event.setCancelled(true);
         else {
-            double exp = Plugin.getInstance().getConfig().getDouble(event.getBlock().getType().toString());
+            double exp = Config.getDouble(event.getBlock().getType().toString());
             user.getSkills().updLumbering(reduceExp(exp, lumbering));
         }
     }

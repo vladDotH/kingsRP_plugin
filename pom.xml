@@ -70,10 +70,27 @@
             <version>1.12.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
+
         <dependency>
             <groupId>org.mongodb</groupId>
             <artifactId>mongodb-driver-sync</artifactId>
             <version>4.1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.connorlinfoot.actionbarapi</groupId>
+            <artifactId>actionbarapi</artifactId>
+            <version>1.5.4</version>
+            <scope>system</scope>
+            <systemPath>C:/Users/KK/IdeaProjects/MINECRAFT_APIs/ActionBarAPI-1.5.4.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>com.connorlinfoot.titleapi</groupId>
+            <artifactId>titleapi</artifactId>
+            <version>1.7.7</version>
+            <scope>system</scope>
+            <systemPath>C:/Users/KK/IdeaProjects/MINECRAFT_APIs/TitleAPI-1.7.7.jar</systemPath>
         </dependency>
     </dependencies>
 </project>

@@ -1,5 +1,6 @@
 package com.vladdoth.kings_rp_plugin;
 
+import com.vladdoth.kings_rp_plugin.configs.Values;
 import com.vladdoth.kings_rp_plugin.jobs.SkillsData;
 import org.bson.Document;
 
@@ -31,14 +32,14 @@ public class UserData implements Packable {
     @Override
     public Document packData() {
         Document doc = new Document();
-        doc.put("name", name);
+        doc.put(Values.DB_PLAYER_ID, name);
         doc.put("skills", skills.packData());
         return doc;
     }
 
     @Override
     public void setData(Document doc) {
-        name = doc.getString("name");
+        name = doc.getString(Values.DB_PLAYER_ID);
         skills.setData((Document) doc.get("skills"));
     }
 }

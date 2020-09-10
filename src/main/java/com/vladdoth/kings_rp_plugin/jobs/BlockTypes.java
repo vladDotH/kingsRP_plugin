@@ -5,7 +5,6 @@ import org.bukkit.Material;
 public class BlockTypes {
     public static boolean isRockBlock(Material block){
         switch (block){
-            case COBBLESTONE:
             case COAL_ORE:
             case IRON_ORE:
             case REDSTONE_ORE:

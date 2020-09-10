@@ -11,10 +11,8 @@ public class EntityDamaged implements Listener {
     @EventHandler
     public void entityDamaged(EntityDamageByEntityEvent event) {
         if (event.getDamager() instanceof Player) {
-            if (((Player) event.getDamager()).getGameMode() == GameMode.CREATIVE)
-                return;
-
-            JobsManager.attack(event);
+            if (((Player) event.getDamager()).getGameMode() != GameMode.CREATIVE)
+                JobsManager.attack(event);
         }
     }
 }
