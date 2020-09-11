@@ -1,7 +1,6 @@
-package com.vladdoth.kings_rp_plugin.jobs;
+package com.vladdoth.kings_rp_plugin.skills;
 
 import com.vladdoth.kings_rp_plugin.Packable;
-import com.vladdoth.kings_rp_plugin.jobs.commands.Job;
 import org.bson.Document;
 
 import java.util.Date;

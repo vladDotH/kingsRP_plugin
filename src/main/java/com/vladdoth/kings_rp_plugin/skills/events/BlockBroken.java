@@ -1,9 +1,9 @@
-package com.vladdoth.kings_rp_plugin.jobs.events;
+package com.vladdoth.kings_rp_plugin.skills.events;
 
 import com.vladdoth.kings_rp_plugin.configs.Fields;
 import com.vladdoth.kings_rp_plugin.Plugin;
-import com.vladdoth.kings_rp_plugin.jobs.BlockTypes;
-import com.vladdoth.kings_rp_plugin.jobs.JobsManager;
+import com.vladdoth.kings_rp_plugin.skills.util.BlockTypes;
+import com.vladdoth.kings_rp_plugin.skills.SkillsFunctions;
 import org.bukkit.GameMode;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
@@ -21,15 +21,15 @@ public class BlockBroken implements Listener {
         }
 
         if (BlockTypes.isPlantBlock(block.getType())) {
-            JobsManager.harvested(event);
+            SkillsFunctions.harvested(event);
         }
 
         if (BlockTypes.isRockBlock(block.getType())) {
-            JobsManager.brokeRock(event);
+            SkillsFunctions.brokeRock(event);
         }
 
         if (BlockTypes.isWoodBlock(block.getType())) {
-            JobsManager.brokeLog(event);
+            SkillsFunctions.brokeLog(event);
         }
     }
 }

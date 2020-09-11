@@ -1,7 +1,7 @@
 package com.vladdoth.kings_rp_plugin;
 
 import com.vladdoth.kings_rp_plugin.configs.Values;
-import com.vladdoth.kings_rp_plugin.jobs.SkillsData;
+import com.vladdoth.kings_rp_plugin.skills.SkillsData;
 import org.bson.Document;
 
 public class UserData implements Packable {

@@ -7,3 +7,7 @@ commands:
   job:
     description: "Управление работами"
     aliases: [employ]
+
+  skills:
+    description: "Посмотреть навыки"
+    aliases: [exp]

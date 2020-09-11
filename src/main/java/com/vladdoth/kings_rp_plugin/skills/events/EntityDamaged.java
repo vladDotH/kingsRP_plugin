@@ -1,6 +1,6 @@
-package com.vladdoth.kings_rp_plugin.jobs.events;
+package com.vladdoth.kings_rp_plugin.skills.events;
 
-import com.vladdoth.kings_rp_plugin.jobs.JobsManager;
+import com.vladdoth.kings_rp_plugin.skills.SkillsFunctions;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -12,7 +12,7 @@ public class EntityDamaged implements Listener {
     public void entityDamaged(EntityDamageByEntityEvent event) {
         if (event.getDamager() instanceof Player) {
             if (((Player) event.getDamager()).getGameMode() != GameMode.CREATIVE)
-                JobsManager.attack(event);
+                SkillsFunctions.attack(event);
         }
     }
 }

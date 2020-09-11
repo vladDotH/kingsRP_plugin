@@ -1,15 +1,17 @@
-package com.vladdoth.kings_rp_plugin.jobs;
+package com.vladdoth.kings_rp_plugin.skills;
 
 import com.vladdoth.kings_rp_plugin.configs.Config;
-import com.vladdoth.kings_rp_plugin.configs.Fields;
 import com.vladdoth.kings_rp_plugin.Plugin;
 import com.vladdoth.kings_rp_plugin.UserData;
 import com.vladdoth.kings_rp_plugin.configs.Values;
+import com.vladdoth.kings_rp_plugin.skills.util.Chance;
+import org.bukkit.Material;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.inventory.ItemStack;
 
-public class JobsManager {
+public class SkillsFunctions {
 
     static class Chances {
         public final double hit, mine, lumber, harvest;
@@ -86,14 +88,13 @@ public class JobsManager {
 
         double brokeChance = Base.mine + bonus + PerLvl.mine * mining;
 
-        user.getSkills().updHunting(reduceExp(Values.MISS_EXP.MINE, mining));
-
 //        Plugin.getInstance().getLogger().info("chances: " +
 //                "summary=" + brokeChance + " base=" + Base.mine + " bonus=" + bonus + " skill=" + PerLvl.mine * mining);
 
-        if (!Chance.roll(brokeChance))
+        if (!Chance.roll(brokeChance)) {
             event.setCancelled(true);
-        else {
+            user.getSkills().updMining(reduceExp(Values.MISS_EXP.MINE, mining));
+        } else {
             double exp = Config.getDouble(event.getBlock().getType().toString());
             user.getSkills().updMining(reduceExp(exp, mining));
         }
@@ -108,18 +109,24 @@ public class JobsManager {
         if (user.getSkills().getJob() == Jobs.FARMER)
             bonus = Bonus.harvest;
 
-        double harvestChance = Base.hit + bonus + PerLvl.harvest * farming;
-
-        user.getSkills().updHunting(reduceExp(Values.MISS_EXP.HARVEST, farming));
+        double bonusDrop = Base.hit + bonus + PerLvl.harvest * farming;
 
 //        Plugin.getInstance().getLogger().info("chances: " +
 //                "summary=" + harvestChance + " base=" + Base.harvest + " bonus=" + bonus + " skill=" + PerLvl.harvest * farming);
 
-        if (!Chance.roll(harvestChance))
+        if (!Chance.roll(bonusDrop)) {
             event.setCancelled(true);
-        else {
+            user.getSkills().updFarming(reduceExp(Values.MISS_EXP.HARVEST, farming));
+        } else {
             double exp = Config.getDouble(event.getBlock().getType().toString());
             user.getSkills().updFarming(reduceExp(exp, farming));
+
+            event.getPlayer().getWorld().dropItem(event.getBlock().getLocation(),
+                    new ItemStack(event.getBlock().getType()));
+
+            if (event.getBlock().getType() == Material.WHEAT)
+                event.getPlayer().getWorld().dropItem(event.getBlock().getLocation(),
+                        new ItemStack(Material.SEEDS));
         }
     }
 
@@ -134,13 +141,13 @@ public class JobsManager {
 
         double brokeChance = Base.lumber + bonus + PerLvl.lumber * lumbering;
 
-        user.getSkills().updHunting(reduceExp(Values.MISS_EXP.LUMBER, lumbering));
-
 //        Plugin.getInstance().getLogger().info("chances: " +
 //                "summary=" + brokeChance + " base=" + Base.lumber + " bonus=" + bonus + " skill=" + PerLvl.lumber * lumbering);
 
-        if (!Chance.roll(brokeChance))
+        if (!Chance.roll(brokeChance)) {
             event.setCancelled(true);
+            user.getSkills().updLumbering(reduceExp(Values.MISS_EXP.LUMBER, lumbering));
+        }
         else {
             double exp = Config.getDouble(event.getBlock().getType().toString());
             user.getSkills().updLumbering(reduceExp(exp, lumbering));

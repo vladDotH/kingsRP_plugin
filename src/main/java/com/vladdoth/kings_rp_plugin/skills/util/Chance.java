@@ -1,4 +1,4 @@
-package com.vladdoth.kings_rp_plugin.jobs;
+package com.vladdoth.kings_rp_plugin.skills.util;
 
 import java.util.Random;
 

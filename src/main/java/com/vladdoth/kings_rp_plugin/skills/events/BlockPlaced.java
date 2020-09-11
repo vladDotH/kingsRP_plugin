@@ -1,6 +1,5 @@
-package com.vladdoth.kings_rp_plugin.jobs.events;
+package com.vladdoth.kings_rp_plugin.skills.events;
 
-import com.vladdoth.kings_rp_plugin.configs.Fields;
 import com.vladdoth.kings_rp_plugin.Plugin;
 import com.vladdoth.kings_rp_plugin.configs.Values;
 import org.bukkit.GameMode;

@@ -1,4 +1,4 @@
-package com.vladdoth.kings_rp_plugin.jobs;
+package com.vladdoth.kings_rp_plugin.skills;
 
 import org.bukkit.ChatColor;
 
@@ -13,7 +13,7 @@ public enum Jobs {
         String res = "";
         switch (this){
             case NONE:
-                res = ChatColor.DARK_PURPLE + "Нет";
+                res = ChatColor.DARK_PURPLE + "Безработный";
                 break;
             case MINER:
                 res = ChatColor.BLUE + "Шахтёр";
