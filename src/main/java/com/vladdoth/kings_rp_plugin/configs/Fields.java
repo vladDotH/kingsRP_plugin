@@ -32,10 +32,10 @@ public class Fields {
             "BASE_CHANCE_ATTACK"),
 
     CHANCE_PER_LVL = new Skills(
-            "BASE_CHANCE_MINE",
-            "BASE_CHANCE_HARVEST",
-            "BASE_CHANCE_LUMBER",
-            "BASE_CHANCE_ATTACK"),
+            "CHANCE_MINE_PER_LVL",
+            "CHANCE_HARVEST_PER_LVL",
+            "CHANCE_LUMBER_PER_LVL",
+            "CHANCE_ATTACK_PER_LVL"),
 
     JOB_BONUS = new Skills(
             "MINER_BONUS",

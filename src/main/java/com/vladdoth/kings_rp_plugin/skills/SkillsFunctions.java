@@ -112,7 +112,7 @@ public class SkillsFunctions {
         double bonusDrop = Base.harvest + bonus + PerLvl.harvest * farming;
 
 //        Plugin.getInstance().getLogger().info("chances: " +
-//                "summary=" + harvestChance + " base=" + Base.harvest + " bonus=" + bonus + " skill=" + PerLvl.harvest * farming);
+//                "summary=" + bonusDrop + " base=" + Base.harvest + " bonus=" + bonus + " skill=" + PerLvl.harvest * farming);
 
         if (!Chance.roll(bonusDrop)) {
             event.setCancelled(true);
