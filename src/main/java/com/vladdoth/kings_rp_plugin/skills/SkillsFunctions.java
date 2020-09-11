@@ -109,7 +109,7 @@ public class SkillsFunctions {
         if (user.getSkills().getJob() == Jobs.FARMER)
             bonus = Bonus.harvest;
 
-        double bonusDrop = Base.hit + bonus + PerLvl.harvest * farming;
+        double bonusDrop = Base.harvest + bonus + PerLvl.harvest * farming;
 
 //        Plugin.getInstance().getLogger().info("chances: " +
 //                "summary=" + harvestChance + " base=" + Base.harvest + " bonus=" + bonus + " skill=" + PerLvl.harvest * farming);
