@@ -92,7 +92,7 @@ public class SkillsFunctions {
 //                "summary=" + brokeChance + " base=" + Base.mine + " bonus=" + bonus + " skill=" + PerLvl.mine * mining);
 
         if (!Chance.roll(brokeChance)) {
-            event.setCancelled(true);
+            event.setDropItems(false);
             user.getSkills().updMining(reduceExp(Values.MISS_EXP.MINE, mining));
         } else {
             double exp = Config.getDouble(event.getBlock().getType().toString());
@@ -115,18 +115,18 @@ public class SkillsFunctions {
 //                "summary=" + bonusDrop + " base=" + Base.harvest + " bonus=" + bonus + " skill=" + PerLvl.harvest * farming);
 
         if (!Chance.roll(bonusDrop)) {
-            event.setCancelled(true);
+            event.setDropItems(false);
             user.getSkills().updFarming(reduceExp(Values.MISS_EXP.HARVEST, farming));
         } else {
             double exp = Config.getDouble(event.getBlock().getType().toString());
             user.getSkills().updFarming(reduceExp(exp, farming));
-
-            event.getPlayer().getWorld().dropItem(event.getBlock().getLocation(),
-                    new ItemStack(event.getBlock().getType()));
-
-            if (event.getBlock().getType() == Material.WHEAT)
-                event.getPlayer().getWorld().dropItem(event.getBlock().getLocation(),
-                        new ItemStack(Material.SEEDS));
+//
+//            event.getPlayer().getWorld().dropItem(event.getBlock().getLocation(),
+//                    new ItemStack(event.getBlock().getType()));
+//
+//            if (event.getBlock().getType() == Material.WHEAT)
+//                event.getPlayer().getWorld().dropItem(event.getBlock().getLocation(),
+//                        new ItemStack(Material.SEEDS));
         }
     }
 
@@ -145,7 +145,7 @@ public class SkillsFunctions {
 //                "summary=" + brokeChance + " base=" + Base.lumber + " bonus=" + bonus + " skill=" + PerLvl.lumber * lumbering);
 
         if (!Chance.roll(brokeChance)) {
-            event.setCancelled(true);
+            event.setDropItems(false);
             user.getSkills().updLumbering(reduceExp(Values.MISS_EXP.LUMBER, lumbering));
         }
         else {
