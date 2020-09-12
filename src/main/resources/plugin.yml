@@ -1,7 +1,6 @@
 name: Kings_rp_plugin
 version: ${project.version}
 main: com.vladdoth.kings_rp_plugin.Plugin
-depend: [TitleAPI, ActionBarAPI]
 
 commands:
   job:
