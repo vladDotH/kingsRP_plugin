@@ -1,4 +1,4 @@
-name: Kings_rp_plugin
+name: KingsRP
 version: ${project.version}
 main: com.vladdoth.kings_rp_plugin.Plugin
 

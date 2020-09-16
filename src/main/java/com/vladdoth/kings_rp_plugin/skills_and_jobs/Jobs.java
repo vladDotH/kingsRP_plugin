@@ -1,4 +1,4 @@
-package com.vladdoth.kings_rp_plugin.skills;
+package com.vladdoth.kings_rp_plugin.skills_and_jobs;
 
 import org.bukkit.ChatColor;
 
@@ -7,7 +7,9 @@ public enum Jobs {
     MINER,
     FARMER,
     LUMBER,
-    HUNTER;
+    HUNTER,
+    BREEDER,
+    FISHER;
 
     public String convert() {
         String res = "";
@@ -26,6 +28,12 @@ public enum Jobs {
                 break;
             case HUNTER:
                 res = ChatColor.RED + "Охотник";
+                break;
+            case BREEDER:
+                res = ChatColor.GOLD + "Животновод";
+                break;
+            case FISHER:
+                res = ChatColor.AQUA + "Рыбак";
                 break;
         }
 

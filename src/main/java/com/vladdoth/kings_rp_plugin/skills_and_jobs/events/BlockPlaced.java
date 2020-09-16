@@ -1,8 +1,8 @@
-package com.vladdoth.kings_rp_plugin.skills.events;
+package com.vladdoth.kings_rp_plugin.skills_and_jobs.events;
 
 import com.vladdoth.kings_rp_plugin.Plugin;
 import com.vladdoth.kings_rp_plugin.configs.Values;
-import com.vladdoth.kings_rp_plugin.skills.util.BlockTypes;
+import com.vladdoth.kings_rp_plugin.skills_and_jobs.util.BlockTypes;
 import org.bukkit.GameMode;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,7 +14,7 @@ public class BlockPlaced implements Listener {
     public void blockPlaced(BlockPlaceEvent event) {
         if (event.getPlayer() != null
                 && event.getPlayer().getGameMode() != GameMode.CREATIVE
-                && !BlockTypes.isPlantBlock(event.getBlock().getType()))
+                && !BlockTypes.isPlant(event.getBlock().getType()))
             event.getBlock().setMetadata(Values.NOT_NATURAL, new FixedMetadataValue(Plugin.getInstance(), true));
     }
 }
