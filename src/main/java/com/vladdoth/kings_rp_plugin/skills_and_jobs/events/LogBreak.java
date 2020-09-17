@@ -16,10 +16,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.inventory.ItemStack;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class LogBreak implements Listener {
     private static final String succes = ChatColor.GREEN + "Удачно срублено",
@@ -48,15 +44,15 @@ public class LogBreak implements Listener {
 
             double brokeChance = Values.BASE_CHANCE.LUMBER + bonus + Values.CHANCE_PER_LVL.LUMBER * lumbering;
 
-            double exp = 0;
-            if (!RandomGenerator.roll(brokeChance)) {
+            double exp;
+            if (RandomGenerator.roll(brokeChance)) {
+                ActionBarAPI.sendActionBar(player, succes, 20);
+                exp = Config.getDouble(event.getBlock().getType().toString());
+            } else {
                 ActionBarAPI.sendActionBar(player, fail, 20);
                 event.setDropItems(false);
                 FailDrop.failRandomDrop(event.getPlayer().getWorld(), event.getBlock().getLocation(), failDrop);
                 exp = Values.MISS_EXP.LUMBER;
-            } else {
-                ActionBarAPI.sendActionBar(player, succes, 20);
-                exp = Config.getDouble(event.getBlock().getType().toString());
             }
 
             userData.getSkills().updAndInfo(player, Skills.LUMBERING, exp);

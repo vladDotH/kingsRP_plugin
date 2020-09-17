@@ -9,14 +9,10 @@ import com.vladdoth.kings_rp_plugin.skills_and_jobs.Skills;
 import com.vladdoth.kings_rp_plugin.skills_and_jobs.util.RandomGenerator;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
-import org.bukkit.Material;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerFishEvent;
-
-import java.util.Map;
 
 public class Fishing implements Listener {
     private static final String succes = ChatColor.GREEN + "Удачно поймано",
@@ -40,14 +36,14 @@ public class Fishing implements Listener {
 
             double fishChance = Values.BASE_CHANCE.FISH + bonus + Values.CHANCE_PER_LVL.FISH * fishing;
 
-            double exp = 0;
-            if (!RandomGenerator.roll(fishChance)) {
+            double exp;
+            if (RandomGenerator.roll(fishChance)) {
+                ActionBarAPI.sendActionBar(player, succes, 20);
+                exp = Values.FISH_EXP;
+            } else {
                 ActionBarAPI.sendActionBar(player, fail, 20);
                 event.setCancelled(true);
                 exp = Values.MISS_EXP.FISH;
-            } else {
-                ActionBarAPI.sendActionBar(player, succes, 20);
-                exp = Values.FISH_EXP;
             }
 
             user.getSkills().updAndInfo(player, Skills.FISHING, exp);

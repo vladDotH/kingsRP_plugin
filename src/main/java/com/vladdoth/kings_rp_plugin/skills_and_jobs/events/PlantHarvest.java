@@ -11,7 +11,6 @@ import com.vladdoth.kings_rp_plugin.skills_and_jobs.util.BlockTypes;
 import com.vladdoth.kings_rp_plugin.skills_and_jobs.util.RandomGenerator;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -41,14 +40,14 @@ public class PlantHarvest implements Listener {
 
             double dropChance = Values.BASE_CHANCE.HARVEST + bonus + Values.CHANCE_PER_LVL.HARVEST * farming;
 
-            double exp = 0;
-            if (!RandomGenerator.roll(dropChance)) {
+            double exp;
+            if (RandomGenerator.roll(dropChance)) {
+                ActionBarAPI.sendActionBar(player, succes, 20);
+                exp = Config.getDouble(event.getBlock().getType().toString());
+            } else {
                 ActionBarAPI.sendActionBar(player, fail, 20);
                 event.setDropItems(false);
                 exp = Values.MISS_EXP.HARVEST;
-            } else {
-                ActionBarAPI.sendActionBar(player, succes, 20);
-                exp = Config.getDouble(event.getBlock().getType().toString());
             }
 
             userData.getSkills().updAndInfo(player, Skills.FARMING, exp);

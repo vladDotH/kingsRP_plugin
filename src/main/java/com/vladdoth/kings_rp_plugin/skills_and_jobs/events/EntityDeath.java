@@ -3,15 +3,12 @@ package com.vladdoth.kings_rp_plugin.skills_and_jobs.events;
 import com.vladdoth.kings_rp_plugin.Plugin;
 import com.vladdoth.kings_rp_plugin.UserData;
 import com.vladdoth.kings_rp_plugin.configs.Config;
-import com.vladdoth.kings_rp_plugin.configs.Values;
 import com.vladdoth.kings_rp_plugin.skills_and_jobs.Skills;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
-import org.bukkit.inventory.ItemStack;
 
 public class EntityDeath implements Listener {
     @EventHandler

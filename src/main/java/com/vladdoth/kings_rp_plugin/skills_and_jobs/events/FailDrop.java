@@ -7,7 +7,6 @@ import org.bukkit.World;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
-import java.util.Random;
 
 public class FailDrop {
     public static void failRandomDrop(World world, Location loc, List<Material> drop) {

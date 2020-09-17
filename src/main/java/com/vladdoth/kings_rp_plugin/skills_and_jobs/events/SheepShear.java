@@ -3,11 +3,9 @@ package com.vladdoth.kings_rp_plugin.skills_and_jobs.events;
 import com.connorlinfoot.actionbarapi.ActionBarAPI;
 import com.vladdoth.kings_rp_plugin.Plugin;
 import com.vladdoth.kings_rp_plugin.UserData;
-import com.vladdoth.kings_rp_plugin.configs.Config;
 import com.vladdoth.kings_rp_plugin.configs.Values;
 import com.vladdoth.kings_rp_plugin.skills_and_jobs.Jobs;
 import com.vladdoth.kings_rp_plugin.skills_and_jobs.Skills;
-import com.vladdoth.kings_rp_plugin.skills_and_jobs.util.BlockTypes;
 import com.vladdoth.kings_rp_plugin.skills_and_jobs.util.RandomGenerator;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -42,15 +40,15 @@ public class SheepShear implements Listener {
 
         double shearChance = Values.BASE_CHANCE.SHEAR + bonus + Values.CHANCE_PER_LVL.SHEAR * breeding;
 
-        double exp = 0;
-        if (!RandomGenerator.roll(shearChance)) {
+        double exp;
+        if (RandomGenerator.roll(shearChance)) {
+            ActionBarAPI.sendActionBar(player, succes, 20);
+            exp = Values.SHEAR_EXP;
+        } else {
             ActionBarAPI.sendActionBar(player, fail, 20);
             event.setCancelled(true);
             sheep.setSheared(true);
             exp = Values.MISS_EXP.SHEAR;
-        } else {
-            ActionBarAPI.sendActionBar(player, succes, 20);
-            exp = Values.SHEAR_EXP;
         }
 
         user.getSkills().updAndInfo(player, Skills.BREEDING, exp);

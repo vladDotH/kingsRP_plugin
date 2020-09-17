@@ -9,16 +9,14 @@ import com.vladdoth.kings_rp_plugin.skills_and_jobs.Jobs;
 import com.vladdoth.kings_rp_plugin.skills_and_jobs.Skills;
 import com.vladdoth.kings_rp_plugin.skills_and_jobs.util.BlockTypes;
 import com.vladdoth.kings_rp_plugin.skills_and_jobs.util.RandomGenerator;
-import org.bukkit.*;
+import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.material.Coal;
-
-import java.util.List;
 
 public class OreBreak implements Listener {
     private static final String succes = ChatColor.GREEN + "Удачно добыто",
@@ -45,15 +43,15 @@ public class OreBreak implements Listener {
 
             double brokeChance = Values.BASE_CHANCE.MINE + bonus + Values.CHANCE_PER_LVL.MINE * mining;
 
-            double exp = 0;
-            if (!RandomGenerator.roll(brokeChance)) {
+            double exp;
+            if (RandomGenerator.roll(brokeChance)) {
+                ActionBarAPI.sendActionBar(player, succes, 20);
+                exp = Config.getDouble(event.getBlock().getType().toString());
+            } else {
                 ActionBarAPI.sendActionBar(player, fail, 20);
                 event.setDropItems(false);
                 FailDrop.failDrop(event.getPlayer().getWorld(), event.getBlock().getLocation(), getDrop(event.getBlock()));
                 exp = Values.MISS_EXP.MINE;
-            } else {
-                ActionBarAPI.sendActionBar(player, succes, 20);
-                exp = Config.getDouble(event.getBlock().getType().toString());
             }
 
             user.getSkills().updAndInfo(player, Skills.MINING, exp);
