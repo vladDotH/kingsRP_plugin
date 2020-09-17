@@ -34,7 +34,7 @@ public class SkillsMenu {
             breeding = new ItemStack(Material.SHEARS),
             fishing = new ItemStack(Material.FISHING_ROD);
 
-    private static ItemStack[] options = {mining, lumbering, farming, attack,
+    private static ItemStack[] options = {mining, farming, lumbering, attack,
             shooting, breeding, fishing};
 
 

@@ -1,5 +1,6 @@
 package com.vladdoth.kings_rp_plugin.skills_and_jobs.events;
 
+import com.connorlinfoot.actionbarapi.ActionBarAPI;
 import com.vladdoth.kings_rp_plugin.Plugin;
 import com.vladdoth.kings_rp_plugin.UserData;
 import com.vladdoth.kings_rp_plugin.configs.Config;
@@ -8,13 +9,24 @@ import com.vladdoth.kings_rp_plugin.skills_and_jobs.Jobs;
 import com.vladdoth.kings_rp_plugin.skills_and_jobs.Skills;
 import com.vladdoth.kings_rp_plugin.skills_and_jobs.util.BlockTypes;
 import com.vladdoth.kings_rp_plugin.skills_and_jobs.util.RandomGenerator;
+import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.inventory.ItemStack;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class LogBreak implements Listener {
+    private static final String succes = ChatColor.GREEN + "Удачно срублено",
+            fail = ChatColor.RED + "Неудача";
+
+    private static final Material[] failDrop = {Material.STICK};
+
     @EventHandler
     public void logBreak(BlockBreakEvent event) {
         Player player = event.getPlayer();
@@ -22,34 +34,32 @@ public class LogBreak implements Listener {
         if (player.getGameMode().equals(GameMode.CREATIVE))
             return;
 
+        if (event.getBlock().hasMetadata(Values.NOT_NATURAL))
+            return;
+
         if (BlockTypes.isWood(event.getBlock().getType())) {
-            UserData user = Plugin.getInstance().getUsers()
+            UserData userData = Plugin.getInstance().getUsers()
                     .get(player.getName());
 
-            double lumbering = user.getSkills().getSkill(Skills.LUMBERING);
+            double lumbering = userData.getSkills().getSkill(Skills.LUMBERING);
             double bonus = 0;
-            if (user.getJobData().getJob() == Jobs.LUMBER)
+            if (userData.getJobData().getJob() == Jobs.LUMBER)
                 bonus = Values.JOB_BONUS.LUMBER;
 
             double brokeChance = Values.BASE_CHANCE.LUMBER + bonus + Values.CHANCE_PER_LVL.LUMBER * lumbering;
 
-//        Plugin.getInstance().getLogger().info("chances: " +
-//                "summary=" + brokeChance + " base=" + Base.lumber + " bonus=" + bonus + " skill=" + PerLvl.lumber * lumbering);
-
-            double skillOld = user.getSkills().getSkill(Skills.LUMBERING);
-
+            double exp = 0;
             if (!RandomGenerator.roll(brokeChance)) {
+                ActionBarAPI.sendActionBar(player, fail, 20);
                 event.setDropItems(false);
-                user.getSkills().updSkill(Skills.LUMBERING, Values.MISS_EXP.LUMBER);
+                FailDrop.failRandomDrop(event.getPlayer().getWorld(), event.getBlock().getLocation(), failDrop);
+                exp = Values.MISS_EXP.LUMBER;
             } else {
-                double exp = Config.getDouble(event.getBlock().getType().toString());
-                user.getSkills().updSkill(Skills.LUMBERING, exp);
+                ActionBarAPI.sendActionBar(player, succes, 20);
+                exp = Config.getDouble(event.getBlock().getType().toString());
             }
 
-            double skillNew = user.getSkills().getSkill(Skills.LUMBERING);
-
-            if (LevelUp.checkLvl(skillOld, skillNew))
-                LevelUp.lvlUpInfo(event.getPlayer(), skillNew, Skills.LUMBERING);
+            userData.getSkills().updAndInfo(player, Skills.LUMBERING, exp);
         }
     }
 }

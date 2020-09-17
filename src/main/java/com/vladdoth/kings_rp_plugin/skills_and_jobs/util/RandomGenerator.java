@@ -2,6 +2,7 @@ package com.vladdoth.kings_rp_plugin.skills_and_jobs.util;
 
 import org.bukkit.util.Vector;
 
+import java.util.List;
 import java.util.Random;
 
 public class RandomGenerator {
@@ -23,5 +24,16 @@ public class RandomGenerator {
                 z = (double) (new Random().nextInt((int) (2 * R * precision))) / precision - R;
 
         return new Vector(x, y, z);
+    }
+
+
+    public static <T> T choice(List<T> l) {
+        int i = rand.nextInt(l.size());
+        return l.get(i);
+    }
+
+    public static <T> T choice(T[] l) {
+        int i = rand.nextInt(l.length);
+        return l[i];
     }
 }

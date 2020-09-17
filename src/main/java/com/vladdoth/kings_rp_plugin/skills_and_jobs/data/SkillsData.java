@@ -3,8 +3,10 @@ package com.vladdoth.kings_rp_plugin.skills_and_jobs.data;
 import com.vladdoth.kings_rp_plugin.Packable;
 import com.vladdoth.kings_rp_plugin.skills_and_jobs.Jobs;
 import com.vladdoth.kings_rp_plugin.skills_and_jobs.Skills;
+import com.vladdoth.kings_rp_plugin.skills_and_jobs.events.LevelUp;
 import com.vladdoth.kings_rp_plugin.skills_and_jobs.util.ExpReduce;
 import org.bson.Document;
+import org.bukkit.entity.Player;
 
 import java.util.*;
 
@@ -14,6 +16,12 @@ public class SkillsData implements Packable {
     public void updSkill(Skills skill, double exp) {
         double skillValue = skills[skill.ordinal()];
         skills[skill.ordinal()] += ExpReduce.reduce(exp, skillValue);
+    }
+
+    public void updAndInfo(Player p, Skills skill, double exp) {
+        double skillOld = skills[skill.ordinal()];
+        updSkill(skill, exp);
+        LevelUp.checkAndInfo(p, skill, skillOld);
     }
 
     public double getSkill(Skills skill) {

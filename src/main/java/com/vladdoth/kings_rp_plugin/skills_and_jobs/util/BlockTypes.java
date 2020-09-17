@@ -11,9 +11,12 @@ import java.util.Arrays;
 
 public class BlockTypes {
     public static final Material[]
-            ORES = {Material.COAL_ORE, Material.IRON_ORE, Material.REDSTONE_ORE, Material.LAPIS_ORE, Material.GOLD_ORE, Material.EMERALD_ORE, Material.DIAMOND_ORE},
-            NON_BLOCK_PLANTS = {Material.CROPS, Material.CARROT, Material.POTATO, Material.COCOA, Material.WHEAT, Material.BEETROOT_BLOCK},
-            PLANTS = {Material.CROPS, Material.CARROT, Material.POTATO, Material.COCOA, Material.WHEAT, Material.BEETROOT_BLOCK, Material.PUMPKIN, Material.MELON_BLOCK};
+            ORES = {Material.COAL_ORE, Material.IRON_ORE, Material.REDSTONE_ORE, Material.GLOWING_REDSTONE_ORE,
+            Material.LAPIS_ORE, Material.GOLD_ORE, Material.EMERALD_ORE, Material.DIAMOND_ORE},
+
+    NON_BLOCK_PLANTS = {Material.CROPS, Material.CARROT, Material.POTATO, Material.COCOA, Material.WHEAT, Material.BEETROOT_BLOCK},
+            PLANTS = {Material.CROPS, Material.CARROT, Material.POTATO, Material.COCOA, Material.WHEAT, Material.BEETROOT_BLOCK, Material.PUMPKIN, Material.MELON_BLOCK},
+            WOODS = {Material.LOG, Material.LOG_2};
 
     public static boolean isOre(Material block) {
         return Arrays.asList(ORES).contains(block);
@@ -35,7 +38,8 @@ public class BlockTypes {
 
     public static boolean isRipe(Block block) {
         if (block.getType() == Material.MELON_BLOCK
-                || block.getType() == Material.PUMPKIN)
+                || block.getType() == Material.PUMPKIN
+                || block.getType() == Material.SUGAR_CANE_BLOCK)
             return true;
 
         MaterialData md = block.getState().getData();
@@ -50,6 +54,6 @@ public class BlockTypes {
     }
 
     public static boolean isWood(Material block) {
-        return block == Material.LOG;
+        return Arrays.asList(WOODS).contains(block);
     }
 }
