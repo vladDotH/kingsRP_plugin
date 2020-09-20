@@ -1,7 +1,8 @@
-DB_URI: "mongodb+srv://VladDotH:7bewRgq5hFaQN4NqyB8ZrZrS@vladdoth-cluster.c63tz.azure.mongodb.net/minecraft_server?retryWrites=true&w=majority"
-DB_NAME: minecraft_server
+DB_URI: mongodb+srv://shrigorevich:456385@cluster0.kjaby.azure.mongodb.net/jeroniya?retryWrites=true&w=majority
+DB_NAME: jeroniya
 DB_COL_NAME: users
-DB_PLAYER_ID: _id
+DB_PLAYER_NAME: nickname
+DB_PWD: password
 
 META_NOT_NATURAL: not_natural
 
@@ -49,12 +50,13 @@ ANIMAL_DROP_MISS: 0.01
 FISH_MISS: 0.01
 
 
-ATTACK_EXP: 0.10
+ATTACK_EXP: 0.05
 SHEAR_EXP: 0.10
 ANIMAL_DROP_EXP: 0.10
 FISH_EXP: 0.50
 SHOOT_MISS_EXP: 0.01
 SHOOT_HIT_EXP: 0.10
+BREED_EXP: 0.10
 
 # MINER
 COAL_ORE: 0.10

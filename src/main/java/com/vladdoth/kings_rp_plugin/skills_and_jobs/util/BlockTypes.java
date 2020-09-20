@@ -12,10 +12,11 @@ import java.util.Arrays;
 public class BlockTypes {
     public static final Material[]
             ORES = {Material.COAL_ORE, Material.IRON_ORE, Material.REDSTONE_ORE, Material.GLOWING_REDSTONE_ORE,
-            Material.LAPIS_ORE, Material.GOLD_ORE, Material.EMERALD_ORE, Material.DIAMOND_ORE},
+            Material.LAPIS_ORE, Material.GOLD_ORE, Material.EMERALD_ORE, Material.DIAMOND_ORE, Material.QUARTZ_ORE},
 
-    NON_BLOCK_PLANTS = {Material.CROPS, Material.CARROT, Material.POTATO, Material.COCOA, Material.WHEAT, Material.BEETROOT_BLOCK},
-            PLANTS = {Material.CROPS, Material.CARROT, Material.POTATO, Material.COCOA, Material.WHEAT, Material.BEETROOT_BLOCK, Material.PUMPKIN, Material.MELON_BLOCK},
+    NON_BLOCK_PLANTS = {Material.CROPS, Material.CARROT, Material.POTATO, Material.COCOA, Material.BEETROOT_BLOCK},
+            PLANTS = {Material.CROPS, Material.CARROT, Material.POTATO, Material.COCOA, Material.BEETROOT_BLOCK,
+                    Material.PUMPKIN, Material.MELON_BLOCK, Material.SUGAR_CANE_BLOCK},
             WOODS = {Material.LOG, Material.LOG_2};
 
     public static boolean isOre(Material block) {

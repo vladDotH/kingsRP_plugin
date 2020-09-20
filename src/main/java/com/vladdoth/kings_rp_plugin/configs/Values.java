@@ -1,11 +1,23 @@
 package com.vladdoth.kings_rp_plugin.configs;
 
+import java.lang.reflect.Field;
+
 public class Values {
+    public static void check() {
+        for (Field f : Values.class.getFields()) {
+            try {
+                System.out.println(f.getName() + " = " + f.get(null).toString());
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public static final String
             DB_URI = Config.getString(Fields.DB_URI),
             DB_NAME = Config.getString(Fields.DB_NAME),
             DB_COL_NAME = Config.getString(Fields.DB_COL_NAME),
-            DB_PLAYER_ID = Config.getString(Fields.DB_PLAYER_ID),
+            DB_PLAYER_NAME = Config.getString(Fields.DB_PLAYER_NAME),
             NOT_NATURAL = Config.getString(Fields.META_NOT_NATURAL),
             JOB_MENU_NAME = Config.getString(Fields.JOB_MENU_NAME),
             SKILLS_MENU_NAME = Config.getString(Fields.SKILLS_MENU_NAME);
@@ -29,10 +41,23 @@ public class Values {
             this.ANIMAL_DROP = ANIMAL_DROP;
             this.FISH = FISH;
         }
+
+        @Override
+        public String toString() {
+            return "Events{\n" +
+                    "MINE=" + MINE +
+                    ",\n HARVEST=" + HARVEST +
+                    ",\n LUMBER=" + LUMBER +
+                    ",\n ATTACK=" + ATTACK +
+                    ",\n SHEAR=" + SHEAR +
+                    ",\n ANIMAL_DROP=" + ANIMAL_DROP +
+                    ",\n FISH=" + FISH +
+                    '}';
+        }
     }
 
     public static final Events
-            BASE_CHANCE = new Events(
+            BASE = new Events(
             Config.getDouble(Fields.BASE.MINE),
             Config.getDouble(Fields.BASE.HARVEST),
             Config.getDouble(Fields.BASE.LUMBER),
@@ -41,7 +66,7 @@ public class Values {
             Config.getDouble(Fields.BASE.ANIMAL_DROP),
             Config.getDouble(Fields.BASE.FISH)),
 
-    CHANCE_PER_LVL = new Events(
+    PER_LVL = new Events(
             Config.getDouble(Fields.PER_LVL.MINE),
             Config.getDouble(Fields.PER_LVL.HARVEST),
             Config.getDouble(Fields.PER_LVL.LUMBER),
@@ -78,5 +103,6 @@ public class Values {
             SHOOT_MISS_EXP = Config.getDouble(Fields.SHOOT_MISS_EXP),
             SHOOT_HIT_EXP = Config.getDouble(Fields.SHOOT_HIT_EXP),
             MAX_DISP = Config.getDouble(Fields.MAX_DISP),
-            MIN_DISP = Config.getDouble(Fields.MIN_DISP);
+            MIN_DISP = Config.getDouble(Fields.MIN_DISP),
+            BREED_EXP = Config.getDouble(Fields.BREED_EXP);
 }

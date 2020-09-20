@@ -1,14 +1,11 @@
 package com.vladdoth.kings_rp_plugin.skills_and_jobs.data;
 
 import com.vladdoth.kings_rp_plugin.Packable;
-import com.vladdoth.kings_rp_plugin.skills_and_jobs.Jobs;
 import com.vladdoth.kings_rp_plugin.skills_and_jobs.Skills;
-import com.vladdoth.kings_rp_plugin.skills_and_jobs.events.LevelUp;
+import com.vladdoth.kings_rp_plugin.skills_and_jobs.util.LevelUp;
 import com.vladdoth.kings_rp_plugin.skills_and_jobs.util.ExpReduce;
 import org.bson.Document;
 import org.bukkit.entity.Player;
-
-import java.util.*;
 
 public class SkillsData implements Packable {
     private double[] skills = new double[Skills.size()];

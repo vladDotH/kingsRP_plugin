@@ -1,11 +1,13 @@
 package com.vladdoth.kings_rp_plugin.configs;
 
+import java.lang.reflect.Field;
+
 public class Fields {
     public static final String
             DB_URI = "DB_URI",
             DB_NAME = "DB_NAME",
             DB_COL_NAME = "DB_COL_NAME",
-            DB_PLAYER_ID = "DB_PLAYER_ID",
+            DB_PLAYER_NAME = "DB_PLAYER_NAME",
             META_NOT_NATURAL = "META_NOT_NATURAL";
 
     public static final String
@@ -26,6 +28,19 @@ public class Fields {
             this.SHEAR = SHEAR;
             this.ANIMAL_DROP = ANIMAL_DROP;
             this.FISH = FISH;
+        }
+
+        @Override
+        public String toString() {
+            return "Events{\n" +
+                    "MINE='" + MINE + '\'' +
+                    ",\n HARVEST='" + HARVEST + '\'' +
+                    ",\n LUMBER='" + LUMBER + '\'' +
+                    ",\n ATTACK='" + ATTACK + '\'' +
+                    ",\n SHEAR='" + SHEAR + '\'' +
+                    ",\n ANIMAL_DROP='" + ANIMAL_DROP + '\'' +
+                    ",\n FISH='" + FISH + '\'' +
+                    '}';
         }
     }
 
@@ -78,6 +93,6 @@ public class Fields {
             SHOOT_MISS_EXP = "SHOOT_MISS_EXP",
             SHOOT_HIT_EXP = "SHOOT_HIT_EXP",
             MAX_DISP = "MAX_DISP",
-            MIN_DISP = "MIN_DISP";
-    ;
+            MIN_DISP = "MIN_DISP",
+            BREED_EXP = "BREED_EXP";
 }

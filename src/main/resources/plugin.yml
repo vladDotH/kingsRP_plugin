@@ -10,3 +10,6 @@ commands:
   skills:
     description: "Посмотреть навыки"
     aliases: [exp]
+
+  checkConfig:
+    aliases: [check]

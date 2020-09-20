@@ -9,6 +9,7 @@ public class UserData implements Packable {
     protected String name;
     protected SkillsData skills = new SkillsData();
     protected JobData jobData = new JobData();
+    protected boolean authorized = false;
 
     public static String skillsKey = "skills",
             jobDataKey = "jobData";
@@ -36,7 +37,7 @@ public class UserData implements Packable {
     @Override
     public Document packData() {
         Document doc = new Document();
-        doc.put(Values.DB_PLAYER_ID, name);
+        doc.put(Values.DB_PLAYER_NAME, name);
         doc.put(skillsKey, skills.packData());
         doc.put(jobDataKey, jobData.packData());
 
@@ -45,8 +46,8 @@ public class UserData implements Packable {
 
     @Override
     public void setData(Document doc) {
-        if (doc.getString(Values.DB_PLAYER_ID) != null)
-            name = doc.getString(Values.DB_PLAYER_ID);
+        if (doc.getString(Values.DB_PLAYER_NAME) != null)
+            name = doc.getString(Values.DB_PLAYER_NAME);
 
         if (doc.get(skillsKey) != null)
             skills.setData((Document) doc.get(skillsKey));
