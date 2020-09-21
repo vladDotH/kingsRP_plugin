@@ -10,7 +10,7 @@ import org.bson.Document;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 
-public class DataBase implements Listener {
+public class DataBase {
     private MongoClient mc;
     private MongoDatabase database;
     private MongoCollection<Document> usersCol;

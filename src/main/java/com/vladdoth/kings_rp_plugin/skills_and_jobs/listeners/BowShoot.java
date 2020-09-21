@@ -9,6 +9,7 @@ import com.vladdoth.kings_rp_plugin.skills_and_jobs.Skills;
 import com.vladdoth.kings_rp_plugin.skills_and_jobs.util.RandomGenerator;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -45,7 +46,9 @@ public class BowShoot implements Listener {
 
     @EventHandler
     public void attack(ProjectileHitEvent event) {
-        if (!(event.getEntity().getShooter() instanceof Player) || event.getHitEntity() == null)
+        if (!(event.getEntity().getShooter() instanceof Player)
+                || event.getHitEntity() == null
+                || event.getEntity().getType() == EntityType.ARROW)
             return;
 
         Player player = (Player) event.getEntity().getShooter();
