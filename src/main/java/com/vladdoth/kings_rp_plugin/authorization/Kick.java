@@ -4,12 +4,12 @@ import com.vladdoth.kings_rp_plugin.Plugin;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerKickEvent;
 
 @Deprecated
-public class Quit implements Listener {
+public class Kick implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
-    public void playerQuit(PlayerQuitEvent event) {
+    public void kick(PlayerKickEvent event) {
         Plugin.getInstance().getDb().uploadPlayer(event.getPlayer());
         Plugin.getInstance().getUsers().remove(event.getPlayer().getName());
     }

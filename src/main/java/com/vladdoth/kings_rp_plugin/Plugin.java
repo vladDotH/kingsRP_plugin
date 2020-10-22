@@ -55,6 +55,7 @@ public final class Plugin extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(this, this);
         getServer().getPluginManager().registerEvents(new MenuFunctionListener(), this);
 
+        //Не сделана авторизация
         getServer().getPluginManager().registerEvents(new PreLogin(), this);
         getServer().getPluginManager().registerEvents(new Join(), this);
         getServer().getPluginManager().registerEvents(new Quit(), this);
